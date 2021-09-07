@@ -1,0 +1,30 @@
+#ourMissionContainer{
+    height: 300px;
+    width: 100%;
+}
+#ourMission{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding-top: 100px;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+}
+#ourMission img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5%;
+}
+#ourMission div:first-child{
+    width: 50%;
+    padding-right: 5px;
+    
+}
+#ourMission div:first-child p{
+    height: 100%;
+    overflow-y: auto;
+}
+#ourMission h1{
+    text-align: center;
+    padding-bottom: 5px;
+}

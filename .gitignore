@@ -1,0 +1,23 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/front-end/smart-insurance/node_modules
+/front-end/smart-insurance/.pnp
+/front-end/smart-insurance/.pnp.js
+
+# testing
+/front-end/smart-insurance/coverage
+
+# production
+/front-end/smart-insurance/build
+
+# misc
+/front-end/smart-insurance/.DS_Store
+/front-end/smart-insurance/.env.local
+/front-end/smart-insurance/.env.development.local
+/front-end/smart-insurance/.env.test.local
+/front-end/smart-insurance/.env.production.local
+
+/front-end/smart-insurance/npm-debug.log*
+/front-end/smart-insurance/yarn-debug.log*
+/front-end/smart-insurance/yarn-error.log*

@@ -1,0 +1,97 @@
+
+
+/*TOPBAR*/
+#topbar{
+    width: 80%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    position: fixed;
+    z-index: 0;
+
+}
+
+/*TITLE*/
+#title {
+    display: flex;
+    align-items: flex-end;
+    font-family: "Rubik", sans-serif;
+    font-size: 2rem;
+    width: 35%;
+}
+#title div{
+    width:20%;
+    height: 100%;
+    padding-right: 15px;
+    transition: 0.5s all;
+}
+#title div:hover{
+    transform: rotate(45deg);
+}
+#title div *{
+    width: 100%;
+    height: 100%;
+}
+
+/*PAGINATION*/
+#pages{
+    flex-grow: 1;
+    list-style-type: none;
+    font-size: 1rem;
+    display: flex;
+    align-content: space-between;
+    align-items: flex-end;
+    padding: 2px;
+    font-family: "IBM Plex Sans Arabic", sans-serif;
+}
+#pages li {
+    display: block;
+    padding: 0 0.75em;
+    z-index: 1;
+    border-right: 1px solid rgb(197, 197, 197);
+    cursor: pointer;
+    transition: 0.15s all;
+}
+#pages li:hover{
+    color: white;
+}
+
+#pages li:last-child {
+    border: none;
+}
+#pages li a{
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/*DASHBOARD*/
+#dashboard{
+    flex-grow:1;
+    display: flex;
+    align-items: flex-end;
+
+    padding-bottom: 5px;
+}
+#dashboard div{
+    text-align: center;
+    width:150px;
+    height: 20px;
+    background-color: #6200EE;
+    border-radius: 12px;
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.164);
+    font-family: "Press Start 2P", sans-serif;
+    cursor: pointer;
+    font-size: 0.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: 0.2s all;
+}
+#dashboard div:hover{
+    transform: scale(1.1);
+    background-color: #5605c7;
+}

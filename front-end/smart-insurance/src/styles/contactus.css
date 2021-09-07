@@ -1,0 +1,47 @@
+#contactUs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 300px;
+    width: 75%;
+    padding-top: 100px;
+    margin-top: 150px;
+    padding-bottom: 100px;
+}
+#temp{
+    float:right;
+    font-family: "Rubik", serif;
+}
+#contactUsSendContainer{
+    width: 100%;
+    height: 25px;
+}
+#contactUs h1{
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Cormorant Garamond', serif;
+}
+#contactUs input[type=text],#contactUs textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    color: #ccc;
+    background-color: #3d3d3d;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+#contactUs input[type=text]{
+    width: 49%;
+}
+#contactUsForm > input[type=text]:nth-child(2){
+    float: right;
+}
+#contactUs textarea {
+    width: 100%;
+    height: 100px;
+}
+#contactUsForm{
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
