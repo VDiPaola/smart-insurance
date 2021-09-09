@@ -1,0 +1,31 @@
+#dashboard_topbar{
+    position: fixed;
+    top:0;
+    right:0;
+    background-color: #F8F6F6;
+    width: 90vw;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: #515151;
+    font-family: "Rubik", serif;
+}
+#dashboard_topbar * :not(h1){
+    font-family: "Press Start 2P", sans-serif;
+    font-size: 0.65rem;
+}
+#dashboard_topbar h1{
+    padding-left: 3%;
+    padding-right: 10%;
+}
+#dashboard_topbar > * {
+    padding-left: 2%;
+}
+#dashboard_balance{
+    display: flex;
+    flex-grow: 1;
+}
+#dashboard_balance > *{
+    padding-right: 5%;
+    height: 50%;
+}

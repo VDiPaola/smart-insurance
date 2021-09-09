@@ -27,7 +27,7 @@ export default class ContactUs extends React.Component{
     }
 
     handleFormSend(){
-        let name = this.state.name
+        //let name = this.state.name
         let subject = this.state.subject
         let message = this.state.message
         alert("Temporary")

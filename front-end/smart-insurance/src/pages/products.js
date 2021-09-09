@@ -9,7 +9,6 @@ export default function Products(props){
             identifier={item.id}
             description={item.description}
             onClickBuy={props.onClickBuy}
-            onClickMoreInfo={props.onClickMoreInfo}
             />
     })
 
@@ -29,7 +28,6 @@ function ProductItem(props){
             <img src={props.img} alt=""/>
             <p>{props.description}</p>
             <div>
-                <Button variant="contained" onClick={()=>{props.onClickMoreInfo(props.identifier)}}>More Info</Button>
                 <Button variant="contained" onClick={()=>{props.onClickBuy(props.identifier)}}>Buy</Button>
             </div>
             

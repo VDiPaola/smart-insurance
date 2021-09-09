@@ -1,6 +1,5 @@
 //modules
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
 import {ProductList} from './ProductList'
 
 //pages
@@ -44,9 +43,6 @@ export default class App extends React.Component{
     handleBuy(id){
         console.log(id + " clicked buy")
     }
-    handleMoreInfo(id){
-        console.log(id + " clicked more info")
-    }
 
     render(){
         return(
@@ -54,17 +50,16 @@ export default class App extends React.Component{
                 <HandleScroll />
                 <TransparentTopbar />
 
-                <img src={shape1} className="backgroundShape" id="backgroundShape1"/>
-                <img src={shape2} className="backgroundShape" id="backgroundShape2"/>
-                <img src={shape3} className="backgroundShape" id="backgroundShape3"/>
-                <img src={shape4} className="backgroundShape" id="backgroundShape4"/>
+                <img alt="cosmetic shape" src={shape1} className="backgroundShape" id="backgroundShape1"/>
+                <img alt="cosmetic shape" src={shape2} className="backgroundShape" id="backgroundShape2"/>
+                <img alt="cosmetic shape" src={shape3} className="backgroundShape" id="backgroundShape3"/>
+                <img alt="cosmetic shape" src={shape4} className="backgroundShape" id="backgroundShape4"/>
 
                 <TopBar title={title} pages={pages}/>
                 <OurMission />
                 <Products 
                     products={ProductList} 
-                    onClickBuy={this.handleBuy} 
-                    onClickMoreInfo={this.handleMoreInfo} 
+                    onClickBuy={this.handleBuy}
                     />
                 <HowItWorks />
                 <ContactUs />
