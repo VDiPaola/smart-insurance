@@ -1,18 +1,15 @@
 #dashboard_topbar{
-    position: fixed;
-    top:0;
-    right:0;
-    background-color: #F8F6F6;
-    width: 90vw;
-    height: 50px;
     display: flex;
+    position: relative;
+    width: 100%;
     align-items: center;
     color: #515151;
+    background-color: #F8F6F6;
     font-family: "Rubik", serif;
 }
 #dashboard_topbar * :not(h1){
-    font-family: "Press Start 2P", sans-serif;
-    font-size: 0.65rem;
+    font-family: "Jura", sans-serif;
+    font-size: 1rem;
 }
 #dashboard_topbar h1{
     padding-left: 3%;

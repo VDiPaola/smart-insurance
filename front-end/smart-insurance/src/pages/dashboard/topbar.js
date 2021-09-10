@@ -13,7 +13,7 @@ export default function TopBar(props){
 
 function Balance(props){
     const items = props.crypto.map((item)=>{
-        return <div>{item.amount + " " + item.name}</div>
+        return <div key={item.name}>{item.amount + " " + item.name}</div>
     })
 
     return(
