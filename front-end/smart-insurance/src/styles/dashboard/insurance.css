@@ -1,0 +1,63 @@
+#dashboard_insurance{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/*PRODUCT LIST*/
+#dashboard_products p{
+    font-size: 1.2rem;
+    
+    padding: 0% 0.5%;
+}
+#dashboard_productList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+#dashboard_productList div{
+    background-color: #f8f6f6;
+    width: 49%;
+    padding: 10px 0px;
+    text-align: center;
+    cursor: pointer;
+}
+#dashboard_productList div:hover{
+    background-color: #f0f0f0;
+}
+
+/*TABLE*/
+#dashboard_insurance table {
+    border-collapse: collapse;
+    width: 99%;
+  }
+  
+#dashboard_insurance th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+#dashboard_insurance tr:nth-child(even){
+    background-color: #f2f2f2
+}
+  
+#dashboard_insurance th {
+    background-color: #04AA6D;
+    color: white;
+}
+#dashboard_tableBody {
+    max-height: 200px;
+    overflow: auto;
+}
+
+#dashboard_currentlyOwned{
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#dashboard_currentlyOwned p{
+    text-align: left;
+    width: 99%;
+}

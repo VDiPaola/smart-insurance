@@ -6,6 +6,7 @@
 #dashboard_page{
     width: 100%;
     flex-grow: 1;
+    padding-top: 5px;
 }
 #dashboard_pageContainer{
     width: 90vw;

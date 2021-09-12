@@ -5,21 +5,23 @@ import {ethers} from 'ethers'
 //pages
 import TopBar from './pages/dashboard/topbar';
 import SideBar from './pages/dashboard/sidebar';
+import Insurance from './pages/dashboard/insurance';
 
 
 //styles
 import './styles/dashboard/Dashboard.css'
 import './styles/dashboard/topbar.css'
 import './styles/dashboard/sidebar.css'
+import './styles/dashboard/insurance.css'
 
 //vars
 const title = "Smart Insurance Dashboard"
 
 const navItems = [
-    {title:"Insurance", page:"1", needWallet:true},
-    {title:"Governance", page:"2", needWallet:true},
-    {title:"Staking", page:"3", needWallet:true},
-    {title:"Docs", page:"4", needWallet:false}
+    {title:"Insurance", needWallet:true},
+    {title:"Governance", needWallet:true},
+    {title:"Staking", needWallet:true},
+    {title:"Docs", needWallet:false}
 ]
 const navItemTitles = navItems.map((item)=>{return item.title})
 
@@ -27,7 +29,7 @@ export default class Dashboard extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            currentPage: NoWalletPage(),
+            currentPage: -1,
             currentPageIndex: 0,
             userAccount: "not connected",
             provider: null,
@@ -56,7 +58,7 @@ export default class Dashboard extends React.Component{
                     //update user balance
                     this.getBalance()
                     //set initial page
-                    this.setState({currentPage: navItems[this.state.currentPageIndex].page})
+                    this.setState({currentPage: this.state.currentPageIndex})
                 })
                 //update user account when they change
                 window.ethereum.on("accountChange", this.accountChange.bind(this))
@@ -77,7 +79,6 @@ export default class Dashboard extends React.Component{
     handleNavClick(title){
         //update to the right page
         let pageIndex = navItems.findIndex(item => item.title === title)
-        let page = navItems[pageIndex].page
         let needWallet = navItems[pageIndex].needWallet
         //if need wallet and a wallet is not connected show the noWalletPage
         if(needWallet && this.state.provider !== null){
@@ -85,13 +86,13 @@ export default class Dashboard extends React.Component{
             this.state.provider.listAccounts()
                 .then((accounts)=>{
                     if (accounts.length > 0){
-                        this.setState({currentPage: page})
+                        this.setState({currentPage: pageIndex})
                     }else{
-                        this.setState({currentPage: NoWalletPage()})
+                        this.setState({currentPage: -1})
                     }
                 })
         }else{
-            this.setState({currentPage: page})
+            this.setState({currentPage: pageIndex})
         }
 
         this.setState({currentPageIndex: pageIndex})
@@ -112,6 +113,15 @@ export default class Dashboard extends React.Component{
         }
     }
 
+    renderPage(){
+        switch(this.state.currentPage){
+            case 0:
+                return <Insurance />
+            default:
+                return <NoWalletPage />
+        }
+    }
+
     render(){
         return(
             <div id="dashboardContainer">
@@ -119,7 +129,7 @@ export default class Dashboard extends React.Component{
                 <div id="dashboard_pageContainer">
                     <TopBar title={title} crypto={this.state.balances} address={this.state.userAccount}/>
                     <div id="dashboard_page">
-                        {this.state.currentPage}
+                        {this.renderPage()}
                     </div>
                 </div>
             </div>
