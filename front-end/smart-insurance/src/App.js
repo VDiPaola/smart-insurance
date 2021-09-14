@@ -41,7 +41,7 @@ const pages = [
 
 export default class App extends React.Component{
     handleBuy(id){
-        console.log(id + " clicked buy")
+        window.open(`/dashboard/${id}`, "_blank")
     }
 
     render(){

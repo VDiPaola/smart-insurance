@@ -1,5 +1,7 @@
 import UmbrellaIcon from '@material-ui/icons/BeachAccessSharp';
+import {useCallback} from 'react';
 import React from 'react';
+import {useHistory} from 'react-router-dom'
 
 export default class SideBar extends React.Component{
     constructor(props){
@@ -40,8 +42,16 @@ export default class SideBar extends React.Component{
 }
 
 function NavItem(props){
+    const title = props.title
+    const onClick = props.onClick
+    const history = useHistory();
+    const handleOnClick = useCallback((e) => {
+        history.push(`/dashboard`)
+        onClick(e.target,title)
+    }, [history, onClick, title]);
+    
     return(
-        <div className={"dashboard_navItem" + props.className} onClick={(e)=>{props.onClick(e.target,props.title)}}>
+        <div className={"dashboard_navItem" + props.className} onClick={handleOnClick}>
             <p>{props.title}</p>
         </div>
     )

@@ -45,19 +45,25 @@
 #dashboard_insurance th {
     background-color: #04AA6D;
     color: white;
+    position: sticky;
+    top: 0;
 }
 #dashboard_tableBody {
     max-height: 200px;
     overflow: auto;
 }
-
-#dashboard_currentlyOwned{
-    padding-top: 40px;
+.dashboard_tableContainer {
+    overflow: auto;
+    max-height: 30vh;
+    width: 99%;
+}
+.dashboard_tables{
+    padding-top: 4vh;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
-#dashboard_currentlyOwned p{
+.dashboard_tables p{
     text-align: left;
     width: 99%;
 }

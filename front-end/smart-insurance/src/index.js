@@ -22,7 +22,7 @@ function Routing(){
         <Route exact path="/">
             <App />
         </Route>
-        <Route exact path="/dashboard">
+        <Route path="/dashboard">
             <Dashboard />
         </Route>
       </Switch>

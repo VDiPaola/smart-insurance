@@ -1,20 +1,25 @@
-import { useMemo } from 'react'
+import { useMemo, useCallback } from 'react'
 import {useTable} from 'react-table'
+
 import {ProductList} from '../../ProductList'
 import testdata from './testdata.json'
 
 export default function Insurance(props){
     return(
         <div id="dashboard_insurance">
-            <Products />
+            <Products url={props.url} history={props.history}/>
             <CurrentlyOwned />
+            <History />
         </div>
     )
 }
 
 function Products(props){
+    const history = props.history
+    const handleOnClick = useCallback((id) => {history.push(`${props.url}/${id}`)}, [history, props.url]);
+
     const list = ProductList.map((item)=>{
-        return <div key={item.id}>{item.name}</div>
+        return <div key={item.id} onClick={()=>{handleOnClick(item.id)}}>{item.name}</div>
     })
     return(
         <div id="dashboard_products">
@@ -30,7 +35,30 @@ function CurrentlyOwned(props){
     const data = useMemo(()=>testdata, [])
     const columns = useMemo(()=> getHeaders(data[0]), [data])
 
-    const tableInstance = useTable({columns, data})
+    
+    return(
+        <div className="dashboard_tables">
+            <p>Currently Owned</p>
+            <Table columns={columns} data={data}/>
+        </div>
+    )
+}
+
+function History(props){
+    const data = useMemo(()=>testdata, [])
+    const columns = useMemo(()=> getHeaders(data[0]), [data])
+
+    
+    return(
+        <div className="dashboard_tables">
+            <p>History</p>
+            <Table columns={columns} data={data}/>
+        </div>
+    )
+}
+
+function Table(props){
+    const tableInstance = useTable({columns:props.columns, data:props.data})
     const {
         getTableProps, 
         getTableBodyProps, 
@@ -38,8 +66,7 @@ function CurrentlyOwned(props){
         rows, 
         prepareRow} = tableInstance
     return(
-        <div id="dashboard_currentlyOwned">
-            <p>Currently Owned</p>
+        <div className="dashboard_tableContainer">
             <table {...getTableProps()}>
                 <thead>
                     {headerGroups.map((headerGroup)=>(

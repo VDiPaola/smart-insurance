@@ -1,6 +1,7 @@
 //modules
 import React from 'react';
 import {ethers} from 'ethers'
+import {BrowserRouter as Route, Switch, useRouteMatch, useHistory} from 'react-router-dom'
 
 //pages
 import TopBar from './pages/dashboard/topbar';
@@ -36,7 +37,6 @@ export default class Dashboard extends React.Component{
             signer: null,
             balances: {}
         }
-        
         
     }
 
@@ -113,10 +113,10 @@ export default class Dashboard extends React.Component{
         }
     }
 
-    renderPage(){
+    renderPage(path, url, history){
         switch(this.state.currentPage){
             case 0:
-                return <Insurance />
+                return <Insurance url={url} history={history}/>
             default:
                 return <NoWalletPage />
         }
@@ -129,12 +129,25 @@ export default class Dashboard extends React.Component{
                 <div id="dashboard_pageContainer">
                     <TopBar title={title} crypto={this.state.balances} address={this.state.userAccount}/>
                     <div id="dashboard_page">
-                        {this.renderPage()}
+                        <PageRouting page={this.renderPage.bind(this)} />
                     </div>
                 </div>
             </div>
         )
     }
+}
+
+function PageRouting(props){
+    //handles routing for specific insurance so you can go directly go to those pages from the main site
+    let { path, url } = useRouteMatch();
+    const history = useHistory();
+
+    return(
+        <Switch>
+            <Route exact path={path}>{props.page(path, url, history)}</Route>
+            <Route path={path + "/weatherInsurance"}><BuyInsurance type="weather"/></Route>
+        </Switch>
+    )
 }
 
 function NoWalletPage(props){
@@ -148,4 +161,14 @@ function NoWalletPage(props){
 //formats number to the first 2 non zero values
 function formatBalance(balance) {
     return balance.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0]
+}
+
+
+function BuyInsurance(props){
+    const type = props.type
+    return(
+        <div id="dashboard_buyInsurance">
+            {type}
+        </div>
+    )
 }
