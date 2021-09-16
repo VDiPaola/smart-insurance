@@ -7,6 +7,7 @@ import {BrowserRouter as Route, Switch, useRouteMatch, useHistory} from 'react-r
 import TopBar from './pages/dashboard/topbar';
 import SideBar from './pages/dashboard/sidebar';
 import Insurance from './pages/dashboard/insurance';
+import Governance from './pages/dashboard/governance';
 
 
 //styles
@@ -14,6 +15,7 @@ import './styles/dashboard/Dashboard.css'
 import './styles/dashboard/topbar.css'
 import './styles/dashboard/sidebar.css'
 import './styles/dashboard/insurance.css'
+import './styles/dashboard/governance.css'
 
 //vars
 const title = "Smart Insurance Dashboard"
@@ -117,6 +119,8 @@ export default class Dashboard extends React.Component{
         switch(this.state.currentPage){
             case 0:
                 return <Insurance url={url} history={history}/>
+            case 1:
+                return <Governance />
             default:
                 return <NoWalletPage />
         }
