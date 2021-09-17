@@ -8,6 +8,8 @@ import TopBar from './pages/dashboard/topbar';
 import SideBar from './pages/dashboard/sidebar';
 import Insurance from './pages/dashboard/insurance';
 import Governance from './pages/dashboard/governance';
+import Staking from './pages/dashboard/staking';
+import Docs from './pages/dashboard/docs';
 
 
 //styles
@@ -16,6 +18,8 @@ import './styles/dashboard/topbar.css'
 import './styles/dashboard/sidebar.css'
 import './styles/dashboard/insurance.css'
 import './styles/dashboard/governance.css'
+import './styles/dashboard/staking.css'
+import './styles/dashboard/docs.css'
 
 //vars
 const title = "Smart Insurance Dashboard"
@@ -115,12 +119,23 @@ export default class Dashboard extends React.Component{
         }
     }
 
+    handleClickStake(contract){
+        console.log(contract)
+    }
+    handleClickClaim(contract){
+        console.log(contract)
+    }
+
     renderPage(path, url, history){
         switch(this.state.currentPage){
             case 0:
                 return <Insurance url={url} history={history}/>
             case 1:
                 return <Governance />
+            case 2:
+                return <Staking onClickClaim={this.handleClickClaim.bind(this)} onClickStake={this.handleClickStake.bind(this)}/>
+            case 3:
+                return <Docs />
             default:
                 return <NoWalletPage />
         }
