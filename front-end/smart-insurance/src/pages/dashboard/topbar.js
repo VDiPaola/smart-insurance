@@ -4,16 +4,22 @@ export default function TopBar(props){
         <div id="dashboard_topbar">
             <h1>{props.title}</h1>
             <div>
-                <p>{formatAddress(props.address)}</p>
+                {formatAddress(props.address, props.onConnectClick)}
             </div>
             <Balance crypto={props.crypto}/>
         </div>
     )
 }
 
-function formatAddress(addr){
-    if (addr[0] !== "0") {return addr}
-    return addr.slice(0,5) + "..." + addr.slice(addr.length-4,addr.length)
+function formatAddress(addr, onConnectClick){
+    if(addr === null){
+        return <div id="dashboard_topBarConnect" onClick={onConnectClick}><span>Connect</span></div>
+    }else if (addr[0] !== "0") {
+        return <p>{addr}</p>
+    }else{
+        return <p>{addr.slice(0,5) + "..." + addr.slice(addr.length-4,addr.length)}</p>
+    }
+    
 
 }
 

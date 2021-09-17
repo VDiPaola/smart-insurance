@@ -26,3 +26,19 @@
     padding-right: 5%;
     height: 50%;
 }
+
+#dashboard_topBarConnect{
+    background-color: rgb(11, 70, 179);
+    border-radius: 5px;
+    color: white;
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s all;
+}
+#dashboard_topBarConnect:hover{
+    background-color: rgb(3, 46, 126);
+}

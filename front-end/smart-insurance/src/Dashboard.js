@@ -32,16 +32,19 @@ const navItems = [
 ]
 const navItemTitles = navItems.map((item)=>{return item.title})
 
+const networkName = "rinkeby"
+
 export default class Dashboard extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             currentPage: -1,
             currentPageIndex: 0,
-            userAccount: "not connected",
+            userAccount: null,
             provider: null,
             signer: null,
-            balances: {}
+            balances: {},
+            networkName: null,
         }
         
     }
@@ -51,11 +54,17 @@ export default class Dashboard extends React.Component{
         if(typeof window.ethereum !== undefined){
             //set etherjs provider and signer
             this.setState({
-                provider: new ethers.providers.Web3Provider(window.ethereum)
+                provider: new ethers.providers.Web3Provider(window.ethereum, "any")
+                // The "any" network will allow spontaneous network changes
             },()=>{
                 this.setState({signer: this.state.provider.getSigner()})
+                this.networkChange()
             })
+        }
+    }
 
+    connectWallet(){
+        if(typeof window.ethereum !== undefined){
             //prompt user to login to wallet
             window.ethereum.request({ method: 'eth_requestAccounts' })
             .then((accounts)=>{
@@ -64,7 +73,9 @@ export default class Dashboard extends React.Component{
                     //update user balance
                     this.getBalance()
                     //set initial page
-                    this.setState({currentPage: this.state.currentPageIndex})
+                    this.setState({currentPage: this.state.networkName === networkName ? this.state.currentPageIndex : -1})
+                    //intervals for checking user still has wallet connected
+                    this.accountInterval()
                 })
                 //update user account when they change
                 window.ethereum.on("accountChange", this.accountChange.bind(this))
@@ -73,6 +84,37 @@ export default class Dashboard extends React.Component{
                 console.log(err)
             })
         }
+    }
+
+    async networkChange(){
+        //store current network
+        const network = await this.state.provider.getNetwork()
+        this.setState({networkName: network.name}, ()=>{
+            this.connectWallet()
+        })
+        //refreshes page on network change to stop issues from happening
+        this.state.provider.on("network", (newNetwork, oldNetwork) => {
+            /* When a Provider makes its initial connection, it emits a "network"
+            event with a null oldNetwork along with the newNetwork. So, if the
+            oldNetwork exists, it represents a changing network */
+            if (oldNetwork) {
+                window.location.reload();
+            }
+        });
+    }
+
+    accountInterval(){
+        //checks wallet is still logged in
+        setInterval(()=>{
+            this.state.provider.listAccounts()
+            .then((accounts)=>{
+                if (accounts === null || accounts.length < 1){
+                    //refresh page
+                    window.location.reload()
+                }
+            })
+        }, 5 * 1000);
+        
     }
 
 
@@ -86,10 +128,14 @@ export default class Dashboard extends React.Component{
         //update to the right page
         let pageIndex = navItems.findIndex(item => item.title === title)
         let needWallet = navItems[pageIndex].needWallet
-        //if need wallet and a wallet is not connected show the noWalletPage
+        //if need wallet and a wallet is not connected show the noWallet or WrongNetwork page
         if(needWallet && this.state.provider !== null){
-            //check if there is atleast 1 account
-            this.state.provider.listAccounts()
+            //make sure they are on the right network
+            if(this.state.networkName !== networkName){
+                this.setState({currentPage: -1})
+            }else{
+                //check if there is atleast 1 account
+                this.state.provider.listAccounts()
                 .then((accounts)=>{
                     if (accounts.length > 0){
                         this.setState({currentPage: pageIndex})
@@ -97,6 +143,7 @@ export default class Dashboard extends React.Component{
                         this.setState({currentPage: -1})
                     }
                 })
+            }
         }else{
             this.setState({currentPage: pageIndex})
         }
@@ -137,18 +184,19 @@ export default class Dashboard extends React.Component{
             case 3:
                 return <Docs />
             default:
-                return <NoWalletPage />
+                return this.state.networkName !== "rinkeby" ? <WrongNetwork /> : <NoWalletPage />
         }
     }
+
 
     render(){
         return(
             <div id="dashboardContainer">
                 <SideBar navItems={navItemTitles} onClick={this.handleNavClick.bind(this)}/>
                 <div id="dashboard_pageContainer">
-                    <TopBar title={title} crypto={this.state.balances} address={this.state.userAccount}/>
+                    <TopBar title={title} crypto={this.state.balances} address={this.state.userAccount} onConnectClick={this.connectWallet.bind(this)}/>
                     <div id="dashboard_page">
-                        <PageRouting page={this.renderPage.bind(this)} />
+                        <PageRouting page={this.renderPage.bind(this)}/>
                     </div>
                 </div>
             </div>
@@ -173,6 +221,13 @@ function NoWalletPage(props){
     return(
         <div id="dashboard_noWallet">
             <p>You Must Connect A Wallet To Use This Feature</p>
+        </div>
+    )
+}
+function WrongNetwork(props){
+    return(
+        <div id="dashboard_wrongNetwork">
+            <p>You must connect to the rinkeby test network</p>
         </div>
     )
 }
