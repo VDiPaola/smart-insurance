@@ -4,6 +4,7 @@
 /front-end/smart-insurance/node_modules
 /front-end/smart-insurance/.pnp
 /front-end/smart-insurance/.pnp.js
+/smart-contract/node_modules
 
 # testing
 /front-end/smart-insurance/coverage

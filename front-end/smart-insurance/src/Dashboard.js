@@ -104,8 +104,9 @@ export default class Dashboard extends React.Component{
     }
 
     accountInterval(){
-        //checks wallet is still logged in
+        //checks wallet is still logged in and updates balance
         setInterval(()=>{
+            this.getBalance()
             this.state.provider.listAccounts()
             .then((accounts)=>{
                 if (accounts === null || accounts.length < 1){

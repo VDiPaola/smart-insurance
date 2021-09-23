@@ -7,7 +7,7 @@
 
 /*PRODUCT LIST*/
 #dashboard_products p{
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     
     padding: 0% 0.5%;
 }
@@ -43,7 +43,7 @@
 }
   
 #dashboard_insurance th {
-    background-color: #04AA6D;
+    background-color: #525252;
     color: white;
     position: sticky;
     top: 0;
@@ -66,4 +66,5 @@
 .dashboard_tables p{
     text-align: left;
     width: 99%;
+    font-size: 1.3rem;
 }

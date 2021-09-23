@@ -6,18 +6,18 @@ export default class ContactUs extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            name:"",
+            email:"",
             subject:"",
             message:""
         }
 
-        this.handleNameChange = this.handleNameChange.bind(this)
+        this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handleSubjectChange = this.handleSubjectChange.bind(this)
         this.handleMessageChange = this.handleMessageChange.bind(this)
     }
 
-    handleNameChange(event){
-        this.setState({name:event.target.value})
+    handleEmailChange(event){
+        this.setState({email:event.target.value})
     }
     handleSubjectChange(event){
         this.setState({subject:event.target.value})
@@ -27,10 +27,10 @@ export default class ContactUs extends React.Component{
     }
 
     handleFormSend(){
-        //let name = this.state.name
         let subject = this.state.subject
         let message = this.state.message
-        alert("Temporary")
+        //let email = this.state.email
+        //temporary
         window.open(`mailto:test@example.com?subject=${subject}&body=${message}`);
         
     }
@@ -40,7 +40,7 @@ export default class ContactUs extends React.Component{
             <div id="contactUs">
                 <h1>Contact Us</h1>
                 <Form 
-                    onNameChange={this.handleNameChange}
+                    onEmailChange={this.handleEmailChange}
                     onSubjectChange={this.handleSubjectChange}
                     onMessageChange={this.handleMessageChange}
                     />
@@ -55,7 +55,7 @@ export default class ContactUs extends React.Component{
 function Form(props){
     return(
         <div id="contactUsForm">
-            <input type="text"  placeholder="Your name.." onChange={props.onNameChange}/>
+            <input type="text"  placeholder="Email" onChange={props.onEmailChange}/>
             <input type="text"  placeholder="Subject" onChange={props.onSubjectChange}/>
             <textarea placeholder="Message" onChange={props.onMessageChange}></textarea>
         </div>
