@@ -22,3 +22,12 @@
 /front-end/smart-insurance/npm-debug.log*
 /front-end/smart-insurance/yarn-debug.log*
 /front-end/smart-insurance/yarn-error.log*
+
+
+#smart contract
+smart-contract/node_modules
+smart-contract/.env
+
+#Hardhat files
+smart-contract/cache
+smart-contract/artifacts
