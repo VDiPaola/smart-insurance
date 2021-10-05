@@ -18,7 +18,6 @@ describe("SmartToken", function () {
   it("transfer funds", async function () {
     const amount = 100
     const balance1 = await smartToken.balanceOf(addr1.address)
-    const balance2 = await smartToken.balanceOf(addr2.address)
     
     if(balance1 >= amount){
       await smartToken.connect(addr1).transfer(addr2.address, amount)
