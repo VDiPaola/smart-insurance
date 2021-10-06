@@ -24,31 +24,31 @@ describe("InsuranceManager", function () {
 
   it("Buy insurance", async function () {
     //buyWeatherInsurance(string calldata _country)  sent value doesnt match price
-    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("england", {value:"250000000000000000"}))
+    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("london,england", {value:"250000000000000000"}))
     .to.emit(insuranceManager, "WeatherInsuranceBought")
   });
 
 
   it("Buy insurance not using correct amount", async function () {
-    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("england", {value:"100"}))
+    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("london,england", {value:"100"}))
     .to.be.revertedWith("sent value doesnt match price")
   });
 
   it("Buy insurance twice", async function () {
     //buy first time
-    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("england", {value:"250000000000000000"}))
+    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("london,england", {value:"250000000000000000"}))
     .to.emit(insuranceManager, "WeatherInsuranceBought")
     //try buy second time
-    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("england", {value:"250000000000000000"}))
+    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("london,england", {value:"250000000000000000"}))
     .to.be.revertedWith("address already owns insurance")
   });
 
   it("two account buying insurance", async function () {
     //first account
-    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("england", {value:"250000000000000000"}))
+    await expect(insuranceManager.connect(addr1).buyWeatherInsurance("london,england", {value:"250000000000000000"}))
     .to.emit(insuranceManager, "WeatherInsuranceBought")
     //second account
-    await expect(insuranceManager.connect(addr2).buyWeatherInsurance("england", {value:"250000000000000000"}))
+    await expect(insuranceManager.connect(addr2).buyWeatherInsurance("london,england", {value:"250000000000000000"}))
     .to.emit(insuranceManager, "WeatherInsuranceBought")
   });
 
@@ -56,7 +56,7 @@ describe("InsuranceManager", function () {
 
   it("Attempt to claim insurance", async function () {
     //buy insurance
-    await expect(insuranceManager.buyWeatherInsurance("england", {value:"250000000000000000"}))
+    await expect(insuranceManager.buyWeatherInsurance("london,england", {value:"250000000000000000"}))
     .to.emit(insuranceManager, "WeatherInsuranceBought")
     //claim insurance
     await expect(insuranceManager.attemptClaimInsurance())
@@ -67,6 +67,7 @@ describe("InsuranceManager", function () {
     await expect(insuranceManager.attemptClaimInsurance())
     .to.be.revertedWith("address doesnt have this insurance")
   });
+  
   
 
 });

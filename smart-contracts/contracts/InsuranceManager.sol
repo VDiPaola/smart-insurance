@@ -20,9 +20,9 @@ contract InsuranceManager is Ownable{
     IOracle oracleInstance; //interact with oracle contract
     ISmartToken tokenInstance; //interact with token contract
 
-    event WeatherInsuranceBought(address insuredAddress, uint price, string country, uint expireTimestamp);
+    event WeatherInsuranceBought(address insuredAddress, uint price, string cityCountry, uint expireTimestamp);
     event InsuranceExpired();
-    event InsuranceClaimed(address insuredAddress, uint amountClaimed, uint claimedTimestamp);
+    event InsuranceClaimed(address insuredAddress, uint amountClaimed, string claimReason, uint claimedTimestamp);
 
     constructor(address _oracleAddress){
         //set oracle address
@@ -65,14 +65,14 @@ contract InsuranceManager is Ownable{
         delete insuranceParameter[_address];
     }
 
-    function buyWeatherInsurance(string calldata _country) external payable enoughBalance(insurancePrice){
+    function buyWeatherInsurance(string calldata _cityCountry) external payable enoughBalance(insurancePrice){
         //require the address doesnt own insurance already
         require(ownedInsurance[msg.sender] == insuranceEnum.none, "address already owns insurance");
         //set mapping
         ownedInsurance[msg.sender] = insuranceEnum.weather;
-        insuranceParameter[msg.sender] = _country;
+        insuranceParameter[msg.sender] = _cityCountry;
         //emit event
-        emit WeatherInsuranceBought(msg.sender, insurancePrice, _country, block.timestamp + daysInsured);
+        emit WeatherInsuranceBought(msg.sender, insurancePrice, _cityCountry, block.timestamp + daysInsured);
     }
 
     function removeInsurance(address _address) external{
@@ -81,18 +81,16 @@ contract InsuranceManager is Ownable{
         _removeInsurance(_address);
     }
 
-    function _claimInsurance() private{
+    function _claimInsurance(address _insured) private{
         //when claim is successful
         if(address(this).balance < insuranceClaimAmount){
             //pay in SMART tokens
             require(address(tokenInstance) != address(0), "token contract address not set");
-            tokenInstance.payInsurance(msg.sender, insuranceClaimAmount);
+            tokenInstance.payInsurance(_insured, insuranceClaimAmount);
         }else{
             //pay in ether
-            (bool success, ) = msg.sender.call{value:insuranceClaimAmount}("");
+            (bool success, ) = _insured.call{value:insuranceClaimAmount}("");
             require(success, "sending claimed ether failed");
-            emit InsuranceClaimed(msg.sender, insuranceClaimAmount, block.timestamp);
-            _removeInsurance(msg.sender);
         }
     }
 
@@ -103,9 +101,15 @@ contract InsuranceManager is Ownable{
         oracleInstance.requestWeatherData(insuranceParameter[msg.sender], msg.sender);
     }
 
-    function attemptClaimInsuranceCallback() external{
-        //called from oracle 
+    function attemptClaimInsuranceCallback(address _insured, string calldata _claimReason) external{
+        //called from oracle
+        require(ownedInsurance[_insured] != insuranceEnum.none, "address doesnt own insurance");
+        emit InsuranceClaimed(_insured, insuranceClaimAmount, _claimReason, block.timestamp);
+        _removeInsurance(_insured);
+        _claimInsurance(_insured);
     }
+
+    receive() external payable { }
 
     
 }

@@ -1,0 +1,107 @@
+{
+  "oracle": {
+	"address":"0x45F513Bd82911a7a741C18fd438F674C2aed5Ce5",
+	"abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "claimReason",
+          "type": "string"
+        }
+      ],
+      "name": "RecievedWeatherData",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "callerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "cityCountry",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "insuredAddress",
+          "type": "address"
+        }
+      ],
+      "name": "RequestWeatherData",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_insured",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_caller",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_claimReason",
+          "type": "string"
+        }
+      ],
+      "name": "recieveWeatherData",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_cityCountry",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_insured",
+          "type": "address"
+        }
+      ],
+      "name": "requestWeatherData",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+  },
+  "private_key":"392bc0acf1ac51eaadbfde05902c8b6d12f916dac0c1e4e1738cb46570ac8f51",
+  "web3":false,
+  "provider":"HTTP://127.0.0.1:7545",
+  "api_key":"f6f5913c5dmshbffaee40514af2cp135151jsne93431b599e8"
+}

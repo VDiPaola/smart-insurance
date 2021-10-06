@@ -1,0 +1,12 @@
+{
+  "name": "oracle",
+  "version": "1.0.0",
+  "main": "oracle.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.22.0",
+    "bn.js": "^5.2.0",
+    "ethers": "^5.4.7",
+    "moment": "^2.29.1"
+  }
+}

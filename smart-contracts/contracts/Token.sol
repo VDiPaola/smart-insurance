@@ -10,8 +10,6 @@ import "./IInsuranceManager.sol";
 contract SmartToken is ERC20, Ownable, ERC20Permit, ERC20Votes {
     IInsuranceManager insuranceManagerInstance;
 
-    event InsuranceClaimed(address insuredAddress, uint amountClaimed, uint claimedTimestamp);
-
     constructor(address _insuranceManagerAddress) ERC20("Smart", "SMART") ERC20Permit("Smart") {
         _mint(msg.sender, 100 * 10 ** decimals());
 
@@ -30,7 +28,6 @@ contract SmartToken is ERC20, Ownable, ERC20Permit, ERC20Votes {
         //pay insurance with tokens from insurance manager when no ether is available
         require(msg.sender == address(insuranceManagerInstance), "can only mint from insurance manager contract");
         _mint(_to, _amount);
-        emit InsuranceClaimed(_to, _amount, block.timestamp);
         insuranceManagerInstance.removeInsurance(_to);
     }
 

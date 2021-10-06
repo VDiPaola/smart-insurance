@@ -25,9 +25,12 @@
 
 
 #smart contract
-smart-contract/node_modules
-smart-contract/.env
+smart-contracts/node_modules
+smart-contracts/.env
 
 #Hardhat files
-smart-contract/cache
-smart-contract/artifacts
+smart-contracts/cache
+smart-contracts/artifacts
+
+#oracle
+oracle/node_modules

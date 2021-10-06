@@ -34,6 +34,9 @@ const navItemTitles = navItems.map((item)=>{return item.title})
 
 const networkName = "rinkeby"
 
+const insuranceManagerAddress = ""
+const insuranceManagerAbi = ""
+
 export default class Dashboard extends React.Component{
     constructor(props){
         super(props)
@@ -197,7 +200,7 @@ export default class Dashboard extends React.Component{
                 <div id="dashboard_pageContainer">
                     <TopBar title={title} crypto={this.state.balances} address={this.state.userAccount} onConnectClick={this.connectWallet.bind(this)}/>
                     <div id="dashboard_page">
-                        <PageRouting page={this.renderPage.bind(this)}/>
+                        <PageRouting provider={this.state.provider} page={this.renderPage.bind(this)}/>
                     </div>
                 </div>
             </div>
@@ -213,7 +216,7 @@ function PageRouting(props){
     return(
         <Switch>
             <Route exact path={path}>{props.page(path, url, history)}</Route>
-            <Route path={path + "/weatherInsurance"}><BuyInsurance type="weather"/></Route>
+            <Route path={path + "/weatherInsurance"}><BuyInsurance type="weather" provider={props.provider}/></Route>
         </Switch>
     )
 }
@@ -239,11 +242,24 @@ function formatBalance(balance) {
 }
 
 
-function BuyInsurance(props){
-    const type = props.type
-    return(
+class BuyInsurance extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            //contract: new ethers.Contract(insuranceManagerAddress,insuranceManagerAbi,props.provider)
+        }
+    }
+
+    handleBuy(){
+        if(this.props.type.toLowerCase() === "weather"){
+            this.state.contract.buyWeatherInsurance("cityCountry", {value:ethers.utils.parseEther("0.25")})
+        }
+    }
+
+    render(){return(
         <div id="dashboard_buyInsurance">
-            {type}
+            {this.props.type}
+            <button type="button" onClick={this.handleBuy.bind(this)}>Buy Insurance</button>
         </div>
-    )
+    )}
 }
